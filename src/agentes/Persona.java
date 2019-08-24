@@ -36,7 +36,7 @@ public class Persona extends Agent {
     protected void setup() {
         gui = new vistas.Persona(this);
         gui.setVisible(true);
-
+ System.out.println("Hello! Buyer-agent “+getAID().getName()+” is ready.");
         // Registrar agente como "persona"
         DFAgentDescription dfd = new DFAgentDescription();
         dfd.setName(this.getAID());
@@ -157,6 +157,7 @@ public class Persona extends Agent {
         try {
             DFAgentDescription[] result = DFService.search(this, dfd);
             for(int i = 0; i < result.length; i++) {
+               
                 vendedores.add(result[i].getName().getLocalName());
             }
         } catch (FIPAException fe) {

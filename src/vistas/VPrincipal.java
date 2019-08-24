@@ -114,7 +114,6 @@ public class VPrincipal extends javax.swing.JFrame {
 //Listener
 public void agregarListener (ActionListener accion)
 {
-
     this.jButtonIngresar.addActionListener(accion);
 }  
     // Variables declaration - do not modify//GEN-BEGIN:variables

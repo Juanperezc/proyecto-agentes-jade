@@ -41,7 +41,6 @@ public class Planificador extends Agent {
         } catch(FIPAException fe) {
             fe.printStackTrace();
         }
-
         return personas;
     }
 

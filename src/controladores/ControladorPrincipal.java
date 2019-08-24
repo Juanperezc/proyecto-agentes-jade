@@ -4,10 +4,19 @@
  * and open the template in the editor.
  */
 package controladores;
+import agentes.Intermediario;
 import jade.core.Profile; 
 import jade.core.ProfileImpl; 
 import jade.wrapper.*;
 import jade.core.Runtime; 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.UIManager;
 import vistas.VPrincipal;
 
@@ -15,10 +24,11 @@ import vistas.VPrincipal;
  *
  * @author juan
  */
-public class ControladorPrincipal {
+public class ControladorPrincipal implements ActionListener,KeyListener {
     
     private VPrincipal formPrincipal;
-     
+      AgentContainer mainContainer;
+       AgentController ac;
      public ControladorPrincipal(){
          
            try {
@@ -34,30 +44,28 @@ public class ControladorPrincipal {
         Profile profile = new ProfileImpl();
 
         // Contenedor principal
-        AgentContainer mainContainer = runtime.createMainContainer(profile);
+        this.mainContainer = runtime.createMainContainer(profile);
 
         // Crear agentes
         try {
             // RMA (Jade Boot GUI)
-            AgentController ac = mainContainer.createNewAgent("rma",
+            this.ac = this.mainContainer.createNewAgent("rma",
                     "jade.tools.rma.rma", null);
             ac.start();
 
-            // Planificador
-           /*  ac = mainContainer.createNewAgent("Asistente",
-                    "agentes.Asistente", null);
-            ac.start();*/
-
+         
             // 4 Asistentes
          
             String[] personas = {"Eleazar", "Stefan", "German", "Bachaquero"};
             for(int i = 0; i < personas.length; i++) {
-               ac = mainContainer.createNewAgent("Asistente_" + personas[i],
+               ac = this.mainContainer.createNewAgent("Asistente_" + personas[i],
                         "agentes.Asistente", null);
                 ac.start();
             }
              formPrincipal=new VPrincipal();
              formPrincipal.setVisible(true);
+             formPrincipal.agregarListener(this);
+           //  ControladorInicio controladorInicio = new ControladorInicio();
         } catch (StaleProxyException e) {
             e.printStackTrace();
         }
@@ -69,5 +77,45 @@ public class ControladorPrincipal {
        
        formPrincipal.getjTextFieldUsuario().addKeyListener(this);*/
      }
+
+ 
+    @Override
+  public void actionPerformed(ActionEvent e) 
+    {
+       if (e.getSource().equals(formPrincipal.getjButtonIngresar())){
+          // ControladorInicio controladorInicio = new ControladorInicio();
+            try {
+                
+         
+            this.ac = mainContainer.createNewAgent("Bachaquero",
+                    "agentes.Intermediario", null);
+            this.ac.start();
+
+            }
+            catch (StaleProxyException er) {
+            er.printStackTrace();
+            }
+           
+       }
+            
+       }
+           
+
+    
+
+    @Override
+    public void keyTyped(KeyEvent ke) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void keyPressed(KeyEvent ke) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void keyReleased(KeyEvent ke) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 }
