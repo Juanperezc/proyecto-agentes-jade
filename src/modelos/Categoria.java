@@ -14,6 +14,13 @@ public class Categoria {
     private int id;
     private String nombre;
 
+    
+   @Override
+   public String toString() 
+   {
+        return this.nombre;
+    
+   }
 
     public int getId() {
         return id;

@@ -87,8 +87,6 @@ public class VPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldUsuarioActionPerformed
 
-  
-
     //--------------------------
     public JButton getjButtonIngresar() {
         return jButtonIngresar;

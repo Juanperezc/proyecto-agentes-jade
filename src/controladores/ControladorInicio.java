@@ -28,6 +28,8 @@ import jade.core.Profile;
 import jade.core.ProfileImpl; 
 import jade.wrapper.*;
 import jade.core.Runtime; 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.List;
 import java.util.Objects;
 import javax.swing.DefaultComboBoxModel;
@@ -39,7 +41,7 @@ import javax.swing.UIManager;
  *
  * @author juan
  */
-public final class ControladorInicio {
+public final class ControladorInicio implements ActionListener,KeyListener {
     
     private VInicio formInicio;
     private String username;
@@ -58,52 +60,90 @@ public final class ControladorInicio {
        //cargamos productos y categorias
        this.categorias = new ArrayList<Categoria>();
        this.productos = new ArrayList<Producto>();
-       
-      
-     
-       
-       
        this.agente.guardarComportamiento("Marico");
-       
        formInicio=new VInicio();
        formInicio.setVisible(true);
-         formInicio.lblUsuario.setText("Usuario: " + agente.getLocalName());
-        this.cargarCategorias();
+       formInicio.agregarListener(this);
+       formInicio.lblUsuario.setText("Usuario: " + agente.getLocalName());
+       this.cargarCategorias();
        this.cargarProductos();
-        this.cargarListaProductos();
-        this.cargarComboCategorias();
+       this.cargarListaProductos();
+       this.cargarComboCategorias();
 
      }
-           public void cargarComboCategorias(){
+      public Integer buscarCatxNombre(String cat){
+          
+         Integer find = -1;
+         
+         for (Categoria cate : this.categorias) {
+              if (cate.getNombre().equals(cat)){
+                   find = cate.getId();
+              }
+              
+          }            
+         return find;
+      
+      }
+     public void filtrarProdxCat(Integer cat){
+         DefaultListModel model = new DefaultListModel();
+         ArrayList<Producto> prod_filtrados;
+         prod_filtrados = new ArrayList<Producto>();
+         this.productos.forEach((p) -> 
+         {
+             if (p.getCategoria_id() == cat)
+                  model.addElement(p);
+         });
+         
+          formInicio.listProductos.setModel(model);
+
+          System.out.println(model);
+          //llamar al agente para que guarde
+     }
+     public void buscarProductos(String titulo){
+         DefaultListModel model = new DefaultListModel();
+         ArrayList<Producto> prod_filtrados;
+         prod_filtrados = new ArrayList<Producto>();
+         this.productos.forEach((p) -> 
+         {
+             if (p.getTitulo().equals(titulo))
+                  model.addElement(p);
+         });
+         
+          formInicio.listProductos.setModel(model);
+
+          System.out.println(model);
+          
+          //llamar al agente para que guarde
+     }
+     public void cargarComboCategorias(){
                
             DefaultComboBoxModel model = new DefaultComboBoxModel();
-       
             this.categorias.forEach((p) -> {
                 model.addElement(p);
             });
             formInicio.comboCategorias.setModel(model);
 
                
-           }
+      }
       public void cargarListaProductos()
       {
             DefaultListModel model = new DefaultListModel();
-       
             this.productos.forEach((p) -> {
                 model.addElement(p);
+     
             });
            formInicio.listProductos.setModel(model);
-
+           
             System.out.println(model);
   
-      
       }
       public void cargarCategorias(){
-          this.categorias.add(new Categoria(1,"calzado"));
-          this.categorias.add(new Categoria(2,"lenceria"));
-          this.categorias.add(new Categoria(3,"joyeria"));
-          this.categorias.add(new Categoria(4, "cartera"));
-          this.categorias.add(new Categoria(5, "ropa"));
+          this.categorias.add(new Categoria(0,"Todos los productos"));
+          this.categorias.add(new Categoria(1,"Calzado"));
+          this.categorias.add(new Categoria(2,"Lenceria"));
+          this.categorias.add(new Categoria(3,"Joyeria"));
+          this.categorias.add(new Categoria(4, "Cartera"));
+          this.categorias.add(new Categoria(5, "Ropa"));
       }
      public void cargarProductos(){
          //zapatos
@@ -223,6 +263,39 @@ public final class ControladorInicio {
                  
      }
      
+      @Override
+  public void actionPerformed(ActionEvent e) 
+    {
+       System.out.println(e.getSource());
+       if (e.getSource().equals(this.formInicio.comboCategorias)){
+          // ControladorInicio controladorInicio = new ControladorInicio();
+          System.out.println(this.formInicio.comboCategorias.getSelectedItem());
+          this.filtrarProdxCat(this.buscarCatxNombre((String) this.formInicio.comboCategorias.getSelectedItem()));
+       }
+         if (e.getSource().equals(this.formInicio.getBtnBuscar())){
+          // ControladorInicio controladorInicio = new ControladorInicio();
+          System.out.println("BtnBuscar");
+          this.buscarProductos(this.formInicio.getTxtBuscar().getText());
+           
+       }
+   }
+           
+
     
+
+    @Override
+    public void keyTyped(KeyEvent ke) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void keyPressed(KeyEvent ke) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void keyReleased(KeyEvent ke) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 }
