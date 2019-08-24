@@ -5,6 +5,10 @@
  */
 package vistas;
 
+import javax.swing.JButton;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+
 /**
  *
  * @author Roas
@@ -29,26 +33,22 @@ public class VProductos extends javax.swing.JFrame {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
-        jTextFieldNombreUsuario1 = new javax.swing.JTextField();
-        jLabel14 = new javax.swing.JLabel();
+        jTextFieldBuscar = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTableCarritoCliente1 = new javax.swing.JTable();
+        jTableProductos = new javax.swing.JTable();
+        jButtonBuscar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTableCarritoCliente = new javax.swing.JTable();
+        jTableCarrito = new javax.swing.JTable();
         jLabel12 = new javax.swing.JLabel();
         jTextFieldNombreUsuario = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(jTextFieldNombreUsuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 300, -1));
+        jPanel1.add(jTextFieldBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 300, -1));
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel14.setText("Buscar");
-        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 50, 20));
-
-        jTableCarritoCliente1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -163,19 +163,22 @@ public class VProductos extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane4.setViewportView(jTableCarritoCliente1);
-        if (jTableCarritoCliente1.getColumnModel().getColumnCount() > 0) {
-            jTableCarritoCliente1.getColumnModel().getColumn(4).setResizable(false);
-            jTableCarritoCliente1.getColumnModel().getColumn(5).setResizable(false);
+        jScrollPane4.setViewportView(jTableProductos);
+        if (jTableProductos.getColumnModel().getColumnCount() > 0) {
+            jTableProductos.getColumnModel().getColumn(4).setResizable(false);
+            jTableProductos.getColumnModel().getColumn(5).setResizable(false);
         }
 
-        jPanel1.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 540, 310));
+        jPanel1.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 540, 310));
+
+        jButtonBuscar.setText("Buscar");
+        jPanel1.add(jButtonBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 13, 80, 30));
 
         jTabbedPane1.addTab("Productos", jPanel1);
 
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTableCarritoCliente.setModel(new javax.swing.table.DefaultTableModel(
+        jTableCarrito.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -290,7 +293,7 @@ public class VProductos extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(jTableCarritoCliente);
+        jScrollPane3.setViewportView(jTableCarrito);
 
         jPanel3.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 540, 310));
 
@@ -323,6 +326,32 @@ public class VProductos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    
+    public JTextField getjTextFieldBuscar() {
+        return jTextFieldBuscar;
+    }
+    
+    public JButton getjButtonBuscar() {
+        return jButtonBuscar;
+    }
+    
+    //-------------------------------------------
+    public JTable getjTableProductos() {
+        return jTableProductos;
+    }
+    
+    //----------------------------------------------
+    public JTextField getjTextFieldNombreUsuario() {
+        return jTextFieldNombreUsuario;
+    }
+    
+    public JTable getjTableCarrito() {
+        return jTableCarrito;
+    }
+    
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -359,16 +388,16 @@ public class VProductos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonBuscar;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTableCarritoCliente;
-    private javax.swing.JTable jTableCarritoCliente1;
+    private javax.swing.JTable jTableCarrito;
+    private javax.swing.JTable jTableProductos;
+    private javax.swing.JTextField jTextFieldBuscar;
     private javax.swing.JTextField jTextFieldNombreUsuario;
-    private javax.swing.JTextField jTextFieldNombreUsuario1;
     // End of variables declaration//GEN-END:variables
 }
