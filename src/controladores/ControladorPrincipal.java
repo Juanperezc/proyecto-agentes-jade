@@ -20,8 +20,7 @@ public class ControladorPrincipal {
       
        formPrincipal.setVisible(true);
        
-     /*  formPrincipal.getjMenuMovimientos().setEnabled(false);
-       formPrincipal.getjMenuArchivos().setEnabled(false);
+     
        
        formPrincipal.getjTextFieldUsuario().addKeyListener(this);*/
      }
