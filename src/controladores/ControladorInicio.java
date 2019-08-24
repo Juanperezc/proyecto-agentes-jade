@@ -16,6 +16,19 @@ import java.util.Date;
 import modelos.Categoria;
 import modelos.Producto;
 import vistas.VPrincipal;
+import modelos.Producto;
+import vistas.VInicio;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import static java.lang.Boolean.TRUE;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import jade.core.Profile; 
+import jade.core.ProfileImpl; 
+import jade.wrapper.*;
+import jade.core.Runtime; 
+import javax.swing.UIManager;
 
 /**
  *
