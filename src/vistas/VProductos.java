@@ -350,6 +350,7 @@ public class VProductos extends javax.swing.JFrame {
         return jTableCarrito;
     }
     
+
     
     
     /**
