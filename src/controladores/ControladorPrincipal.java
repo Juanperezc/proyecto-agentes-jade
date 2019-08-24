@@ -86,7 +86,7 @@ public class ControladorPrincipal implements ActionListener,KeyListener {
           // ControladorInicio controladorInicio = new ControladorInicio();
             try {
                 
-         
+            formPrincipal.setVisible(false);
             this.ac = mainContainer.createNewAgent("Bachaquero",
                     "agentes.Intermediario", null);
             this.ac.start();

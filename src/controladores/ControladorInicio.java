@@ -36,8 +36,8 @@ import javax.swing.UIManager;
  */
 public class ControladorInicio {
     
-    private VPrincipal formPrincipal;
-    
+    private VInicio formInicio;
+    private String username;
     
     //arreglo de productos
     private ArrayList<Producto> productos;
@@ -56,8 +56,13 @@ public class ControladorInicio {
        
        this.cargarCategorias();
        this.cargarProductos();
+       
        this.agente.guardarComportamiento("Marico");
-
+       
+       formInicio=new VInicio();
+       formInicio.setVisible(true);
+       
+       formInicio.lblUsuario.setText("Usuario: " + agente.getLocalName());
      }
       public void cargarCategorias(){
           this.categorias.add(new Categoria(1,"calzado"));
