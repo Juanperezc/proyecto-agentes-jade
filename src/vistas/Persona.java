@@ -54,14 +54,14 @@ public class Persona extends JFrame {
     public void setPapel(String papel) {
         panelComprador.setVisible(false);
         panelVendedor.setVisible(false);
-        switch(papel) {
+       /* switch(papel) {
         case "Comprador":
             panelComprador.setVisible(true);
             break;
         case "Vendedor":
             panelVendedor.setVisible(true);
             break;
-        }
+        }*/
     }
 
     public void aviso(String mensaje) {
