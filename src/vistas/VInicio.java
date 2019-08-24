@@ -26,7 +26,7 @@ public class VInicio extends javax.swing.JFrame {
 public void agregarListener (ActionListener accion)
 {
     this.btnBuscar.addActionListener(accion);
-    this.comboCat.addActionListener(accion);
+    this.comboCategorias.addActionListener(accion);
 }  
     /**
      * This method is called from within the constructor to initialize the form.
@@ -42,7 +42,7 @@ public void agregarListener (ActionListener accion)
         btnSalir = new javax.swing.JButton();
         btnCarrito = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        comboCat = new javax.swing.JComboBox<>();
+        comboCategorias = new javax.swing.JComboBox<>();
         lblUsuario = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         listProductos = new javax.swing.JList<>();
@@ -69,11 +69,11 @@ public void agregarListener (ActionListener accion)
         jLabel3.setText("Categorias");
         jLabel3.setName("lblProductos"); // NOI18N
 
-        comboCat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Joyas", "Ropa interior", "Carteras", "Calzados" }));
-        comboCat.setName("cbProductos"); // NOI18N
-        comboCat.addActionListener(new java.awt.event.ActionListener() {
+        comboCategorias.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Joyas", "Ropa interior", "Carteras", "Calzados" }));
+        comboCategorias.setName("cbProductos"); // NOI18N
+        comboCategorias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboCatActionPerformed(evt);
+                comboCategoriasActionPerformed(evt);
             }
         });
 
@@ -106,7 +106,7 @@ public void agregarListener (ActionListener accion)
                                     .addGap(49, 49, 49)
                                     .addComponent(jLabel3)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(comboCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(comboCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(0, 0, Short.MAX_VALUE))))
                         .addComponent(txtBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(27, Short.MAX_VALUE))
@@ -131,7 +131,7 @@ public void agregarListener (ActionListener accion)
                         .addGap(14, 14, 14)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(comboCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(comboCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnSalir)
                         .addGap(28, 28, 28))))
@@ -142,9 +142,9 @@ public void agregarListener (ActionListener accion)
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void comboCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCatActionPerformed
+    private void comboCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCategoriasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_comboCatActionPerformed
+    }//GEN-LAST:event_comboCategoriasActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
@@ -158,7 +158,7 @@ public void agregarListener (ActionListener accion)
     private javax.swing.JButton btnBuscar;
     private javax.swing.JLabel btnCarrito;
     private javax.swing.JButton btnSalir;
-    private javax.swing.JComboBox<String> comboCat;
+    public javax.swing.JComboBox<String> comboCategorias;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JLabel lblUsuario;

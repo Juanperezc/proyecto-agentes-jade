@@ -30,6 +30,7 @@ import jade.wrapper.*;
 import jade.core.Runtime; 
 import java.util.List;
 import java.util.Objects;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JTable;
 import javax.swing.UIManager;
@@ -70,9 +71,20 @@ public final class ControladorInicio {
         this.cargarCategorias();
        this.cargarProductos();
         this.cargarListaProductos();
+        this.cargarComboCategorias();
 
      }
-     
+           public void cargarComboCategorias(){
+               
+            DefaultComboBoxModel model = new DefaultComboBoxModel();
+       
+            this.categorias.forEach((p) -> {
+                model.addElement(p);
+            });
+            formInicio.comboCategorias.setModel(model);
+
+               
+           }
       public void cargarListaProductos()
       {
             DefaultListModel model = new DefaultListModel();
