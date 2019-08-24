@@ -10,5 +10,11 @@ package modelos;
  * @author juan
  */
 public class Producto {
+    private int id;
+    private String descripcion;
+    private String imagen;
+    private String titulo;
+    private int precio;
+    private int categoria_id;
     
 }
