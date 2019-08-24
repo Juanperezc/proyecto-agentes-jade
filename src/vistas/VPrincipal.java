@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class VPrincipal extends javax.swing.JFrame {
@@ -21,9 +22,9 @@ public class VPrincipal extends javax.swing.JFrame {
         jPanelEntrar = new javax.swing.JPanel();
         jButtonIngresar = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        jTextFieldContraseña = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jTextFieldUsuario = new javax.swing.JTextField();
+        jPasswordField1 = new javax.swing.JPasswordField();
         jMenuBar1 = new javax.swing.JMenuBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -42,19 +43,22 @@ public class VPrincipal extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel6.setText("Contraseña");
         jPanelEntrar.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 100, 70, 30));
-        jPanelEntrar.add(jTextFieldContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 270, 30));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel7.setText("Ingrese usuario o e-mail");
         jPanelEntrar.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 160, 30));
 
+        jTextFieldUsuario.setName("jTextFieldUsuario"); // NOI18N
         jTextFieldUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldUsuarioActionPerformed(evt);
             }
         });
-        jPanelEntrar.add(jTextFieldUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 400, 30));
+        jPanelEntrar.add(jTextFieldUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 180, 30));
         jTextFieldUsuario.getAccessibleContext().setAccessibleName("");
+
+        jPasswordField1.setName("jPasswordField1"); // NOI18N
+        jPanelEntrar.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 140, 130, 30));
 
         setJMenuBar(jMenuBar1);
 
@@ -93,10 +97,11 @@ public class VPrincipal extends javax.swing.JFrame {
     public JButton getjButtonIngresar() {
         return jButtonIngresar;
     }
-
+    
     //----------------------------------
-    public JTextField getjTextFieldContraseña() {
-        return jTextFieldContraseña;
+    public JPasswordField getjPasswordField() {
+    
+        return jPasswordField1;
     }
     
     public JTextField getjTextFieldUsuario() {
@@ -122,7 +127,7 @@ public void agregarListener (ActionListener accion)
     private javax.swing.JLabel jLabel7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanelEntrar;
-    private javax.swing.JTextField jTextFieldContraseña;
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextFieldUsuario;
     // End of variables declaration//GEN-END:variables
 }

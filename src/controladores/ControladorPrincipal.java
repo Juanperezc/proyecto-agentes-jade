@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import vistas.VPrincipal;
 
@@ -56,7 +57,7 @@ public class ControladorPrincipal implements ActionListener,KeyListener {
          
             // 5 Asistentes
          
-            String[] personas = {"Shely", "Moises", "Frank", "Reyes","Hector"};
+            String[] personas = {"Shely", "Moises", "Frank", "Reyes", "Hector"};
             for(int i = 0; i < personas.length; i++) {
                ac = this.mainContainer.createNewAgent("Asistente_" + personas[i],
                         "agentes.Asistente", null);
@@ -86,12 +87,26 @@ public class ControladorPrincipal implements ActionListener,KeyListener {
        if (e.getSource().equals(formPrincipal.getjButtonIngresar())){
           // ControladorInicio controladorInicio = new ControladorInicio();
             try {
-               
-            formPrincipal.setVisible(false);
+           
+            boolean logueado = false;
+                
+            for (int i = 0; i < 5; i++) {
+            if (formPrincipal.getjTextFieldUsuario().getText().equals(personas[i]) && formPrincipal.getjPasswordField().getPassword().equals("test"))     
+                logueado = true;
+            }   
+             
+            if (logueado == true){
+                 formPrincipal.setVisible(false);
             this.ac = mainContainer.createNewAgent("Bachaquero",
                     "agentes.Intermediario", null);
-            this.ac.start();
-
+            this.ac.start(); 
+            } else {
+                JOptionPane.showMessageDialog(formPrincipal, "Error de datos", "ERROR", JOptionPane.ERROR_MESSAGE );
+            }           
+          
+            
+            
+            
             }
             catch (StaleProxyException er) {
             er.printStackTrace();

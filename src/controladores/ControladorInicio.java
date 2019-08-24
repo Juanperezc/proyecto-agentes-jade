@@ -86,6 +86,14 @@ public final class ControladorInicio {
   
       
       }
+      
+      public void Salir(ActionEvent e) {
+          if(((JButton)e.getSource()).getText().equals("Atras")){
+              formInicio.setVisible(false);
+              formPrincipal.setVisible(true); //Mostrar la vista principal
+          }
+      }
+      
       public void cargarCategorias(){
           this.categorias.add(new Categoria(1,"calzado"));
           this.categorias.add(new Categoria(2,"lenceria"));
