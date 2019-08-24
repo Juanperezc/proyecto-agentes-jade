@@ -28,17 +28,21 @@ import jade.core.Profile;
 import jade.core.ProfileImpl; 
 import jade.wrapper.*;
 import jade.core.Runtime; 
+import java.util.List;
+import java.util.Objects;
+import javax.swing.DefaultListModel;
+import javax.swing.JTable;
 import javax.swing.UIManager;
 
 /**
  *
  * @author juan
  */
-public class ControladorInicio {
+public final class ControladorInicio {
     
     private VInicio formInicio;
     private String username;
-    
+    DefaultListModel<String> model;
     //arreglo de productos
     private ArrayList<Producto> productos;
     
@@ -54,16 +58,34 @@ public class ControladorInicio {
        this.categorias = new ArrayList<Categoria>();
        this.productos = new ArrayList<Producto>();
        
-       this.cargarCategorias();
-       this.cargarProductos();
+      
+     
+       
        
        this.agente.guardarComportamiento("Marico");
        
        formInicio=new VInicio();
        formInicio.setVisible(true);
-       
-       formInicio.lblUsuario.setText("Usuario: " + agente.getLocalName());
+         formInicio.lblUsuario.setText("Usuario: " + agente.getLocalName());
+        this.cargarCategorias();
+       this.cargarProductos();
+        this.cargarListaProductos();
+
      }
+     
+      public void cargarListaProductos()
+      {
+            DefaultListModel model = new DefaultListModel();
+       
+            this.productos.forEach((p) -> {
+                model.addElement(p);
+            });
+           formInicio.listProductos.setModel(model);
+
+            System.out.println(model);
+  
+      
+      }
       public void cargarCategorias(){
           this.categorias.add(new Categoria(1,"calzado"));
           this.categorias.add(new Categoria(2,"ropa interior"));

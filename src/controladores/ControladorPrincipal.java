@@ -25,7 +25,7 @@ import vistas.VPrincipal;
  * @author juan
  */
 public class ControladorPrincipal implements ActionListener,KeyListener {
-    
+    private String[] personas;
     private VPrincipal formPrincipal;
       AgentContainer mainContainer;
        AgentController ac;
@@ -54,9 +54,9 @@ public class ControladorPrincipal implements ActionListener,KeyListener {
             ac.start();
 
          
-            // 4 Asistentes
+            // 5 Asistentes
          
-            String[] personas = {"Eleazar", "Stefan", "German", "Bachaquero"};
+            String[] personas = {"Shely", "Moises", "Frank", "Reyes","Hector"};
             for(int i = 0; i < personas.length; i++) {
                ac = this.mainContainer.createNewAgent("Asistente_" + personas[i],
                         "agentes.Asistente", null);
@@ -82,10 +82,11 @@ public class ControladorPrincipal implements ActionListener,KeyListener {
     @Override
   public void actionPerformed(ActionEvent e) 
     {
+      String[] personas = {"Shely", "Moises", "Frank", "Reyes","Hector"}; 
        if (e.getSource().equals(formPrincipal.getjButtonIngresar())){
           // ControladorInicio controladorInicio = new ControladorInicio();
             try {
-                
+               
             formPrincipal.setVisible(false);
             this.ac = mainContainer.createNewAgent("Bachaquero",
                     "agentes.Intermediario", null);

@@ -16,6 +16,13 @@ public class Producto {
     private String titulo;
     private double precio;
     private int categoria_id;
+
+  
+    
+    @Override
+    public String toString() {
+        return this.titulo;
+    }
     
    public Producto(int id, String descripcion, String imagen, String titulo, double precio, int categoria_id) 
    {
