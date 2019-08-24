@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/home/juan/NetBeansProjects/Proyecto2/src/modelos/Usuario.java</file>
+            <file>file:/home/juan/NetBeansProjects/Proyecto2/src/modelos/Libro.java</file>
+            <file>file:/home/juan/NetBeansProjects/Proyecto2/src/agentes/Planificador.java</file>
+            <file>file:/home/juan/NetBeansProjects/Proyecto2/src/modelos/Preferencia.java</file>
+            <file>file:/home/juan/NetBeansProjects/Proyecto2/src/modelos/Pedido.java</file>
+            <file>file:/home/juan/NetBeansProjects/Proyecto2/src/modelos/Cat_Productos.java</file>
+            <file>file:/home/juan/NetBeansProjects/Proyecto2/src/agentes/Persona.java</file>
+            <file>file:/home/juan/NetBeansProjects/Proyecto2/src/vistas/Vendedor.java</file>
+            <file>file:/home/juan/NetBeansProjects/Proyecto2/src/modelos/Producto.java</file>
+            <file>file:/home/juan/NetBeansProjects/Proyecto2/src/agentes/Asistente.java</file>
+            <file>file:/home/juan/NetBeansProjects/Proyecto2/src/vistas/VPrincipal.java</file>
+            <file>file:/home/juan/NetBeansProjects/Proyecto2/src/utilidades/ValidadorNombre.java</file>
+            <file>file:/home/juan/NetBeansProjects/Proyecto2/src/vistas/Planificador.java</file>
+            <file>file:/home/juan/NetBeansProjects/Proyecto2/src/principal/Principal.java</file>
+            <file>file:/home/juan/NetBeansProjects/Proyecto2/src/controladores/ControladorPrincipal.java</file>
+        </group>
+    </open-files>
+</project-private>
