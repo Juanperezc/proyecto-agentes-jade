@@ -5,12 +5,18 @@
  */
 package modelos;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author juan
  */
 public class Preferencia {
     
+    private ArrayList<String> productos_buscados; // productos que filtras por el buscador
+    private ArrayList<Integer> productos_vistos; //productos que clickeas
+    private ArrayList<Integer> categorias_buscadas; //categorias que clickeas
+
 }
 
 //* preferencias de usuario
