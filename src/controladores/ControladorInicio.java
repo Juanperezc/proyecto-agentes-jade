@@ -148,7 +148,7 @@ public final class ControladorInicio implements MouseListener,ActionListener,Key
              if (p.getTitulo().equals(titulo)){
                  try {
                      model.addElement(p.toString());
-                     this.agente.guardarComportamiento(new Preferencia(1,p.getId(),0));
+                     this.agente.guardarComportamiento(new Preferencia(2,p.getId(),0));
                  } catch (IOException ex) {
                      Logger.getLogger(ControladorInicio.class.getName()).log(Level.SEVERE, null, ex);
                  }

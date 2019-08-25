@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import utilidades.CargarDatos;
 import vistas.VCarrito;
@@ -52,7 +53,7 @@ public class ControladorCarrito implements ActionListener,KeyListener {
         
         DefaultTableModel model = (DefaultTableModel) this.vcarrito.tblCarrito.getModel();
         for (Producto producto : productos_carrito) {
-            model.addRow(new Object[]{producto.getDescripcion(), CargarDatos.buscarCatxId(producto.getCategoria_id(),CargarDatos.CargarCategorias()).getNombre()     , producto.getPrecio()});
+            model.addRow(new Object[]{producto.getTitulo(),producto.getDescripcion(), CargarDatos.buscarCatxId(producto.getCategoria_id(),CargarDatos.CargarCategorias()).getNombre()     , producto.getPrecio()});
         }
        
        
@@ -75,10 +76,17 @@ public class ControladorCarrito implements ActionListener,KeyListener {
     @Override
     public void actionPerformed(ActionEvent ae) {
         
-         if (ae.getSource().equals(this.vcarrito.btnAtras)){
+       if (ae.getSource().equals(this.vcarrito.btnAtras)){
        this.vcarrito.dispose();
        }
-        
+       if (ae.getSource().equals(this.vcarrito.btnFinalizar)){
+           if (productos_carrito.size() > 0){
+                 ControladorFormaPago controladorFormaPago = new ControladorFormaPago();
+           }else{
+                 JOptionPane.showMessageDialog(this.vcarrito, "El carrito no tiene productos", "ERROR", JOptionPane.ERROR_MESSAGE );
+           }
+         
+       }
     }
 
     @Override

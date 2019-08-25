@@ -55,11 +55,11 @@ public class VCarrito extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Descripcion", "Categoria", "Precio"
+                "Titulo", "Descripcion", "Categoria", "Precio"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -80,6 +80,11 @@ public class VCarrito extends javax.swing.JFrame {
         txtFieldTotal.setEditable(false);
 
         btnFinalizar.setText("Finalizar compra");
+        btnFinalizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFinalizarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -137,6 +142,10 @@ public class VCarrito extends javax.swing.JFrame {
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAtrasActionPerformed
+
+    private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnFinalizarActionPerformed
 
     
      public JTextField getjTextFieldTotal() {

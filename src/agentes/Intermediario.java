@@ -220,23 +220,48 @@ public class Intermediario extends Agent {
         //  ArrayList<Producto> productos_todos = CargarDatos.CargarProductos();
           //ArrayList<Categoria> categorias_todas = CargarDatos.CargarCategorias();
           
-          
-          ArrayList<Producto> productos = new ArrayList<Producto>();
-          if (pref.size() > 0){
-            productos.addAll(this.productosxClick(pref));
-          productos.addAll(this.productosxBusqueda(pref));
-          productos.addAll(this.productosxCategoria(pref));
-          }
-       
-
         //tipo 1 busqueda de producto
         //tipo 2 click de producto
         //tipo 3 filtro categoria
          
+          
+          ArrayList<Producto> productos = new ArrayList<Producto>();
+          if (pref.size() > 0){
+          //mejor oferta
+              System.err.println("productos x busqueda" +  this.productosxBusqueda(pref));
+          if(this.menorDeProductos(this.productosxClick(pref)) != null){
+                 productos.add(this.menorDeProductos(this.productosxClick(pref)));
+                 System.err.println("menorClick");
+          }
+          if(this.menorDeProductos(this.productosxBusqueda(pref)) != null){
+                 productos.add(this.menorDeProductos(this.productosxBusqueda(pref)));
+                 System.err.println("menorBusqueda");
+
+           }
+          if(this.menorDeProductos(this.productosxCategoria(pref)) != null){
+             productos.add(this.menorDeProductos(this.productosxCategoria(pref)));
+                      System.err.println("menorxFiltroxCateogira");
+              
+          }
+ 
+              System.err.println("productos: " + productos.toString());
+          }
+       
+
          
          return productos;
      }
-     
+     public Producto menorDeProductos(ArrayList<Producto> productos){
+        Producto pro = null;
+        double min = 999999999;
+        for (int i = 0; i < productos.size(); i++) {
+            if (productos.get(i).getPrecio() < min) {
+                min = productos.get(i).getPrecio();
+                pro = productos.get(i);
+            }
+        }
+        return pro;
+     }
      
      public ArrayList<Producto> productosxClick(ArrayList<Preferencia> pref){
           ArrayList<Producto> productos_todos = CargarDatos.CargarProductos();
@@ -265,7 +290,6 @@ public class Intermediario extends Agent {
       
      public ArrayList<Producto> productosxCategoria(ArrayList<Preferencia> pref){
           ArrayList<Producto> productos_todos = CargarDatos.CargarProductos();
-         // ArrayList<Categoria> categorias_todas = CargarDatos.CargarCategorias();
           ArrayList<Producto> productos = new ArrayList<Producto>();
            for (Preferencia preferencia : pref) {
              if (preferencia.getTipo() == 3){
