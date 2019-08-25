@@ -181,7 +181,7 @@ public class Persona extends Agent {
 
         addBehaviour(new ContractNetInitiator(this, msg) {
             protected void handlePropose(ACLMessage propose, Vector v) {
-                System.out.println("Vendedor " + propose.getSender().getLocalName() +
+            System.out.println("Vendedor " + propose.getSender().getLocalName() +
                         " ofrece el libro en Bs." + propose.getContent());
             }
 

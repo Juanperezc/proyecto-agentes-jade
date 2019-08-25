@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import vistas.VPrincipal;
 
@@ -24,48 +25,62 @@ public class ControladorPrincipal implements ActionListener,KeyListener {
     private VPrincipal formPrincipal;
       AgentContainer mainContainer;
        AgentController ac;
-     public ControladorPrincipal(){
+
+    /**
+     *
+     * @param firstTime
+     */
+    public ControladorPrincipal(Boolean firstTime){
          
-           try {
+    /*       try {
             // Usar look & feel nativo en las vistas
             UIManager.setLookAndFeel(
             UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {}
+        } catch (Exception e) {}*/
 
-        // Plataforma JADE
+           // Plataforma JADE
         Runtime runtime = Runtime.instance();
 
         // Perfil predetermiando (localhost:1099)
         Profile profile = new ProfileImpl();
+  
+
+        
 
         // Contenedor principal
         this.mainContainer = runtime.createMainContainer(profile);
 
         // Crear agentes
         try {
-            // RMA (Jade Boot GUI)
-            this.ac = this.mainContainer.createNewAgent("rma",
-                    "jade.tools.rma.rma", null);
-            ac.start();
+                    if (firstTime){
+                     // RMA (Jade Boot GUI)
+                     this.ac = this.mainContainer.createNewAgent("rma",
+                             "jade.tools.rma.rma", null);
+                     ac.start();
 
-         
-            // 5 Asistentes
-         
-            String[] personas = {"Shely", "Moises", "Frank", "Reyes","Hector"};
-            for(int i = 0; i < personas.length; i++) {
-               ac = this.mainContainer.createNewAgent("Asistente_" + personas[i],
-                        "agentes.Asistente", null);
-                ac.start();
-            }
-             formPrincipal=new VPrincipal();
-             formPrincipal.setVisible(true);
-             formPrincipal.agregarListener(this);
+
+                     // 5 Asistentes 
+
+                     String[] personas = {"Shely", "Moises", "Frank", "Reyes", "Hector"};
+                     for(int i = 0; i < personas.length; i++) {
+                        ac = this.mainContainer.createNewAgent("Asistente_" + personas[i],
+                                 "agentes.Asistente", null);
+                         ac.start();
+                     }  
+                        
+                    }
+   
+          
            //  ControladorInicio controladorInicio = new ControladorInicio();
         } catch (StaleProxyException e) {
             e.printStackTrace();
         }
         
-  
+       
+        
+             formPrincipal=new VPrincipal();
+             formPrincipal.setVisible(true);
+             formPrincipal.agregarListener(this);
        
      /*  formPrincipal.getjMenuMovimientos().setEnabled(false);
        formPrincipal.getjMenuArchivos().setEnabled(false);
@@ -81,12 +96,28 @@ public class ControladorPrincipal implements ActionListener,KeyListener {
        if (e.getSource().equals(formPrincipal.getjButtonIngresar())){
           // ControladorInicio controladorInicio = new ControladorInicio();
             try {
-               
-            formPrincipal.setVisible(false);
-            this.ac = mainContainer.createNewAgent("Bachaquero",
-                    "agentes.Intermediario", null);
-            this.ac.start();
+           
+            boolean logueado = false;
+                
+            for (int i = 0; i < 5; i++) {
 
+            if (formPrincipal.getjTextFieldUsuario().getText().equals(personas[i]) && formPrincipal.getjPasswordField().getText().equals("test"))     
+                logueado = true;
+            }   
+             
+            if (logueado == true){
+               //  formPrincipal.setVisible(false);
+            //  this.formPrincipal.dispose();
+            this.ac = mainContainer.createNewAgent(formPrincipal.getjTextFieldUsuario().getText(),
+                    "agentes.Intermediario", null);
+            this.ac.start(); 
+            } else {
+                JOptionPane.showMessageDialog(formPrincipal, "Error de datos", "ERROR", JOptionPane.ERROR_MESSAGE );
+            }           
+          
+            
+            
+            
             }
             catch (StaleProxyException er) {
             er.printStackTrace();

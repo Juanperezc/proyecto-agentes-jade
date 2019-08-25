@@ -15,12 +15,16 @@ import jade.domain.FIPAAgentManagement.RefuseException;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import jade.lang.acl.UnreadableException;
 import jade.proto.AchieveREInitiator;
 import jade.proto.AchieveREResponder;
 import jade.proto.ContractNetInitiator;
 import jade.proto.ContractNetResponder;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelos.Libro;
 import modelos.Preferencia;
 
@@ -30,9 +34,9 @@ import modelos.Preferencia;
  */
 public class Asistente extends Agent {
     
-        private ArrayList<Preferencia> preferencias_usuario;
+        public ArrayList<Preferencia> preferencias_usuario;
         protected void setup() {
-            
+          
         this.preferencias_usuario = new ArrayList<Preferencia>();
         // Registrar agente como "persona"
         DFAgentDescription dfd = new DFAgentDescription();
@@ -60,34 +64,33 @@ public class Asistente extends Agent {
        addBehaviour(new ContractNetResponder(this, template) {
             @Override
             protected ACLMessage handleCfp(ACLMessage cfp) throws NotUnderstoodException, RefuseException {
-               /* if(papel.equals("Comprador")) {
-                    throw new RefuseException("No soy vendedor");
-                }*/
-               /* ArrayList<Libro> libros = gui.getLibros();
-                libro = new Libro(cfp.getContent());
-                if (libros.contains(libro)) {
-                    ACLMessage propose = cfp.createReply();
+     
+        
+                ACLMessage propose = cfp.createReply();
+                try {
+                    System.out.println("Devolviendo preferencias");
+                    System.out.println(cfp.getContent());
+                  
                     propose.setPerformative(ACLMessage.PROPOSE);
-                    propose.setContent(String.valueOf(libros.get(libros.indexOf(libro)).getPrecio()));
+                    propose.setContentObject(preferencias_usuario);
                     return propose;
-                } else {
-                    System.out.println("Agent " + getLocalName() + ": Refuse");
-                    throw new RefuseException("No tengo el libro");
-                }*/
-                 System.out.println("Comunicacion");
-                 System.out.println(cfp.getContent());
-                 ACLMessage propose = cfp.createReply();
-                 propose.setPerformative(ACLMessage.PROPOSE);
-                 propose.setContent("Ya la guarde");
-                 return propose;
+                } catch (IOException ex) {
+                    System.out.println("Error preferencias");
+                    Logger.getLogger(Asistente.class.getName()).log(Level.SEVERE, null, ex);
+                     return propose;
+                }
+               
+               
             }
 
             @Override
             protected ACLMessage handleAcceptProposal(ACLMessage cfp, ACLMessage propose, ACLMessage accept) throws FailureException {
+                    System.out.println("Devolviendo preferencias");
                 ACLMessage inform = accept.createReply();
                 inform.setPerformative(ACLMessage.INFORM);
                 return inform;
             }
+            
         });
                 
        
@@ -100,14 +103,48 @@ public class Asistente extends Agent {
             @Override
             protected ACLMessage prepareResponse(ACLMessage request) throws NotUnderstoodException, RefuseException {
               System.out.println("Comunicacion");
-                ACLMessage agree = request.createReply();
-                agree.setPerformative(ACLMessage.AGREE);
-                return agree;
+             
+                try {
+                   //   System.out.println("Preferencia array" + preferencias_usuario.size());
+                      Preferencia pref = (Preferencia) request.getContentObject();
+                    //  System.out.println(pref);
+                      System.out.println(pref.getTipo());
+                      System.out.println(pref.getProducto());
+                      System.out.println(pref.getCategoria());
+                   
+          
+                      if (pref.getTipo() != 0){
+                      preferencias_usuario.add(pref);
+                      System.out.println("Preferencia size: " + preferencias_usuario.size());
+                      //System.out.println(pref.getCategoria());
+                      //System.out.println(request.getContentObject().toString());
+                      }
+                 
+                      ACLMessage inform = request.createReply();
+                      inform.setContentObject(preferencias_usuario);
+                      inform.setPerformative(ACLMessage.INFORM);
+                      //inform.setContent("Test");
+                      return inform;
+                } catch (UnreadableException | IOException ex) {
+                    System.out.println("Fallo array");
+                    Logger.getLogger(Asistente.class.getName()).log(Level.SEVERE, null, ex);
+                    return null;
+                }
+           
+             
             }
 
             @Override
             protected ACLMessage prepareResultNotification(ACLMessage request, ACLMessage response) throws FailureException {
-                     System.out.println("Comunicacion");
+                
+                    /* System.out.println("Comunicacion");
+                       try {
+                           Preferencia pref = (Preferencia) request.getContentObject();
+                           System.out.println(pref.getCategoria());
+                    System.out.println(request.getContentObject().toString());
+                } catch (UnreadableException ex) {
+                    Logger.getLogger(Asistente.class.getName()).log(Level.SEVERE, null, ex);
+                }*/
                     ACLMessage inform = request.createReply();
                     inform.setPerformative(ACLMessage.INFORM);
                     return inform;

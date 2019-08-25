@@ -30,18 +30,28 @@ import jade.wrapper.*;
 import jade.core.Runtime; 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.JTable;
 import javax.swing.UIManager;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import modelos.Preferencia;
+import utilidades.CargarDatos;
 
 /**
  *
  * @author juan
  */
-public final class ControladorInicio implements ActionListener,KeyListener {
+public final class ControladorInicio implements MouseListener,ActionListener,KeyListener,ListSelectionListener {
     
     private VInicio formInicio;
     private String username;
@@ -51,24 +61,34 @@ public final class ControladorInicio implements ActionListener,KeyListener {
     
     //arreglo de categorias
     private ArrayList<Categoria> categorias;
-    
+    private ArrayList<Producto> productos_carrito;
     private agentes.Intermediario agente;
-     public ControladorInicio(agentes.Intermediario intermediario) {
+     public ControladorInicio(agentes.Intermediario intermediario, ArrayList<Producto> productos_carrito) throws IOException {
+       this.productos_carrito =  productos_carrito;
        agente = intermediario;
+    
        System.out.println("Controlador inicio");
-       
+       if (productos_carrito.size() > 0){
+            System.out.println("Carrito con productos" + productos_carrito.size());
+           //redireccionar a la vista del carrito
+       }else{
        //cargamos productos y categorias
        this.categorias = new ArrayList<Categoria>();
        this.productos = new ArrayList<Producto>();
-       this.agente.guardarComportamiento("Marico");
+       // this.agente.guardarComportamiento(new Preferencia(1,1,1));
        formInicio=new VInicio();
        formInicio.setVisible(true);
        formInicio.agregarListener(this);
+       formInicio.agregarSelectionListener(this);
        formInicio.lblUsuario.setText("Usuario: " + agente.getLocalName());
+       formInicio.agregarMouseListener(this);
        this.cargarCategorias();
        this.cargarProductos();
        this.cargarListaProductos();
        this.cargarComboCategorias();
+       }
+
+       
 
      }
       public Integer buscarCatxNombre(String cat){
@@ -84,19 +104,37 @@ public final class ControladorInicio implements ActionListener,KeyListener {
          return find;
       
       }
-     public void filtrarProdxCat(Integer cat){
+      
+      public Producto buscarProdxTitulo(String producto){
+          
+        Producto prod = null;
+         
+         for (Producto pro : this.productos) {
+              if (pro.getTitulo().equals(producto)){
+                  prod = pro;
+              }
+              
+          }            
+         return prod;
+      
+      }
+     public void filtrarProdxCat(Integer cat) throws IOException{
+         System.out.println("categoria" + cat.toString());
          DefaultListModel model = new DefaultListModel();
          ArrayList<Producto> prod_filtrados;
          prod_filtrados = new ArrayList<Producto>();
+        
          this.productos.forEach((p) -> 
          {
-             if (p.getCategoria_id() == cat)
-                  model.addElement(p);
-         });
-         
-          formInicio.listProductos.setModel(model);
+             if (p.getCategoria_id() == cat || cat == 0)
+                  model.addElement(p.toString());
+         }); 
+               
+         formInicio.listProductos.setModel(model);
 
           System.out.println(model);
+          
+          this.agente.guardarComportamiento(new Preferencia(3,0,cat));
           //llamar al agente para que guarde
      }
      public void buscarProductos(String titulo){
@@ -105,13 +143,22 @@ public final class ControladorInicio implements ActionListener,KeyListener {
          prod_filtrados = new ArrayList<Producto>();
          this.productos.forEach((p) -> 
          {
-             if (p.getTitulo().equals(titulo))
-                  model.addElement(p);
+             if (p.getTitulo().equals(titulo)){
+                 try {
+                     model.addElement(p.toString());
+                     this.agente.guardarComportamiento(new Preferencia(1,p.getId(),0));
+                 } catch (IOException ex) {
+                     Logger.getLogger(ControladorInicio.class.getName()).log(Level.SEVERE, null, ex);
+                 }
+             }
+                
          });
          
           formInicio.listProductos.setModel(model);
 
           System.out.println(model);
+          
+          
           
           //llamar al agente para que guarde
      }
@@ -119,7 +166,7 @@ public final class ControladorInicio implements ActionListener,KeyListener {
                
             DefaultComboBoxModel model = new DefaultComboBoxModel();
             this.categorias.forEach((p) -> {
-                model.addElement(p);
+                model.addElement(p.toString());
             });
             formInicio.comboCategorias.setModel(model);
 
@@ -129,7 +176,7 @@ public final class ControladorInicio implements ActionListener,KeyListener {
       {
             DefaultListModel model = new DefaultListModel();
             this.productos.forEach((p) -> {
-                model.addElement(p);
+                model.addElement(p.toString());
      
             });
            formInicio.listProductos.setModel(model);
@@ -137,129 +184,21 @@ public final class ControladorInicio implements ActionListener,KeyListener {
             System.out.println(model);
   
       }
+      
+      public void Salir() {
+          this.formInicio.dispose();
+          /*if(((JButton)e.getSource()).getText().equals("Atras")){
+              formInicio.setVisible(false);
+             // formPrincipal.setVisible(true); //Mostrar la vista principal
+          }*/
+      }
+      
       public void cargarCategorias(){
-          this.categorias.add(new Categoria(0,"Todos los productos"));
-          this.categorias.add(new Categoria(1,"Calzado"));
-          this.categorias.add(new Categoria(2,"Lenceria"));
-          this.categorias.add(new Categoria(3,"Joyeria"));
-          this.categorias.add(new Categoria(4, "Cartera"));
-          this.categorias.add(new Categoria(5, "Ropa"));
+        this.categorias =  CargarDatos.CargarCategorias();
+   
       }
      public void cargarProductos(){
-         //zapatos
-         
-         this.productos.add(new Producto(
-         1,
-         "Comodo, acolchado, ligero, cuero, beish",
-         "calzados-inglese-100-cuero-D_NQ_NP_641175-MLV31250968985_062019-Q_opt.jpg",
-         "Inglese",
-         40.20,
-         1));
-    
-        
-         this.productos.add(new Producto(
-         2,
-         "Comodo, flexible, resistente, tela, negro",
-         "201058-78025-large_default_opt.jpg",
-         "Adidas",
-         50.20,
-         1));
-         
-         this.productos.add(new Producto(
-         3,
-         "Comodo, flexible, ligero, negro, cuero y tela",
-         "luna-chiara-0190-061263-1-catalog-new_opt.jpg",
-         "Converse",
-         60.20,
-         1));
-         
-         this.productos.add(new Producto(
-         4,
-         "Brillante, oro 18k",
-         "187083nprmx_opt.jpg",
-         "Fossil",
-         20.20,
-         3));
-         
-         this.productos.add(new Producto(
-         5,
-         "Comodas, algodón, negras",
-         "carocuore_591602_02_1_opt",
-         "Ovejitas",
-         5.20,
-         2));
-         
-         this.productos.add(new Producto(
-         6,
-         "Comodas, algodón, gris con amarillo",
-         "images (1)_opt.jpg",
-         "Ovejitas",
-         6.50,
-         2));
-         
-         this.productos.add(new Producto(
-         7,
-         "Ligera, cuero, beish",
-         "images (2)_opt.jpg",
-         "Pull & Bear",
-         36.50,
-         4));
-         
-         this.productos.add(new Producto(
-         8,
-         "Talla adaptable, Cuero y gamusa, azul y amarillo",
-         "images (3)_opt.jpg",
-         "Ferrari",
-         60.70,
-         5));
-         
-         this.productos.add(new Producto(
-         9,
-         "Absorbentes, comodas, flexibles, negras",
-         "images_opt.jpg",
-         "Roxy",
-         24.80,
-         2));
-         
-         this.productos.add(new Producto(
-         10,
-         "Ligera, cierre mágico, 8 bolsillos, azul marino",
-         "isabella-cruz-carteras-7769-434762-1-product_opt.jpg",
-         "H & M",
-         45.90,
-         4));
-         
-         this.productos.add(new Producto(
-         11,
-         "Comodas, gabaldina, refrescables, negras",
-         "medias-negras-para-mujer-70975_.jpg",
-         "Embajador",
-         3.20,
-         2));
-         
-         this.productos.add(new Producto(
-         12,
-         "Comodas, desechables, bolsillo urinario, negras",
-         "newchic-sexy-perspectivo-encaje-transpirable-tanga-de-baja-cintura-ropa-interior_opt.jpg",
-         "Rip Curl",
-         6.20,
-         2));
-         
-         this.productos.add(new Producto(
-         13,
-         "Comodas, algodón, rojas",
-         "ropa-interior-482x320_opt.jpg",
-         "Always",
-         8.10,
-         2));
-         
-         this.productos.add(new Producto(
-         14,
-         "Estirable, casual para la noche, vinotinto",
-         "vestidos-beisboleros-casual-ropa-vestir-moda-D_NQ_NP_606742-MLV29633986831_032019-Q_opt.jpg",
-         "Zara",
-         80.40,
-         5));
+        this.productos =  CargarDatos.CargarProductos();
                  
      }
      
@@ -270,7 +209,11 @@ public final class ControladorInicio implements ActionListener,KeyListener {
        if (e.getSource().equals(this.formInicio.comboCategorias)){
           // ControladorInicio controladorInicio = new ControladorInicio();
           System.out.println(this.formInicio.comboCategorias.getSelectedItem());
-          this.filtrarProdxCat(this.buscarCatxNombre((String) this.formInicio.comboCategorias.getSelectedItem()));
+           try {
+               this.filtrarProdxCat(this.buscarCatxNombre(this.formInicio.comboCategorias.getSelectedItem().toString()));
+           } catch (IOException ex) {
+               Logger.getLogger(ControladorInicio.class.getName()).log(Level.SEVERE, null, ex);
+           }
        }
          if (e.getSource().equals(this.formInicio.getBtnBuscar())){
           // ControladorInicio controladorInicio = new ControladorInicio();
@@ -278,6 +221,12 @@ public final class ControladorInicio implements ActionListener,KeyListener {
           this.buscarProductos(this.formInicio.getTxtBuscar().getText());
            
        }
+         if (e.getSource().equals(this.formInicio.getBtnSalir())){
+                agente.doDelete();
+         }
+          if (e.getSource().equals(this.formInicio.listProductos)){
+              
+          }
    }
            
 
@@ -298,4 +247,58 @@ public final class ControladorInicio implements ActionListener,KeyListener {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public void valueChanged(ListSelectionEvent lse) {
+           
+                 /*if (lse.getSource().equals(this.formInicio.listProductos)){
+              
+                //  System.out.println(lse.getSource());
+                     System.out.println(this.formInicio.listProductos.getSelectedIndex());
+                     System.out.println(this.formInicio.listProductos.getSelectedValue());   
+                     
+                     
+                     //      System.out.println(this.formInicio.listProductos.getSelectedValue());
+                 }*/
+       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent me) {
+        JList list = (JList)me.getSource();
+        if (me.getClickCount() == 2) {
+        System.out.println(this.formInicio.listProductos.getSelectedValue());   
+
+        ControladorDetalle controladorDetalle = new ControladorDetalle(buscarProdxTitulo(this.formInicio.listProductos.getSelectedValue()),this.formInicio);
+            try {
+                this.agente.guardarComportamiento(new Preferencia(1,buscarProdxTitulo(this.formInicio.listProductos.getSelectedValue()).getId(),0));
+            } catch (IOException ex) {
+                Logger.getLogger(ControladorInicio.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            // Double-click detected
+        int index = list.locationToIndex(me.getPoint());
+        }
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent me) {
+        
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent me) {
+        
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent me) {
+      
+    }
+
+    @Override
+    public void mouseExited(MouseEvent me) {
+      
+    }
+
 }
+
