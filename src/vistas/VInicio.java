@@ -33,7 +33,7 @@ public void agregarListener (ActionListener accion)
     this.btnBuscar.addActionListener(accion);
     this.comboCategorias.addActionListener(accion);
     this.btnSalir.addActionListener(accion);
-    
+ 
   
 }  
 public void agregarSelectionListener (ListSelectionListener accion)
@@ -44,6 +44,7 @@ public void agregarSelectionListener (ListSelectionListener accion)
 public void agregarMouseListener (MouseListener accion)
 {
      this.listProductos.addMouseListener(accion);
+     this.btnCarrito.addMouseListener(accion);
 }
 
 
@@ -210,7 +211,7 @@ public void agregarMouseListener (MouseListener accion)
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JLabel btnCarrito;
+    public javax.swing.JLabel btnCarrito;
     private javax.swing.JButton btnSalir;
     public javax.swing.JComboBox<String> comboCategorias;
     private javax.swing.JLabel jLabel3;

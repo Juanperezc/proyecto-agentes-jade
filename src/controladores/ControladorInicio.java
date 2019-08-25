@@ -63,15 +63,13 @@ public final class ControladorInicio implements MouseListener,ActionListener,Key
     private ArrayList<Categoria> categorias;
     private ArrayList<Producto> productos_carrito;
     private agentes.Intermediario agente;
+    
      public ControladorInicio(agentes.Intermediario intermediario, ArrayList<Producto> productos_carrito) throws IOException {
        this.productos_carrito =  productos_carrito;
        agente = intermediario;
     
        System.out.println("Controlador inicio");
-       if (productos_carrito.size() > 0){
-            System.out.println("Carrito con productos" + productos_carrito.size());
-           //redireccionar a la vista del carrito
-       }else{
+
        //cargamos productos y categorias
        this.categorias = new ArrayList<Categoria>();
        this.productos = new ArrayList<Producto>();
@@ -86,9 +84,13 @@ public final class ControladorInicio implements MouseListener,ActionListener,Key
        this.cargarProductos();
        this.cargarListaProductos();
        this.cargarComboCategorias();
-       }
-
        
+
+       if (productos_carrito.size() > 0){
+            System.out.println("Carrito con productos" + productos_carrito.size());
+           ControladorCarrito controladorCarrito = new ControladorCarrito(intermediario.getLocalName(), productos_carrito);
+
+       }
 
      }
       public Integer buscarCatxNombre(String cat){
@@ -206,6 +208,9 @@ public final class ControladorInicio implements MouseListener,ActionListener,Key
   public void actionPerformed(ActionEvent e) 
     {
        System.out.println(e.getSource());
+       
+      
+        
        if (e.getSource().equals(this.formInicio.comboCategorias)){
           // ControladorInicio controladorInicio = new ControladorInicio();
           System.out.println(this.formInicio.comboCategorias.getSelectedItem());
@@ -227,6 +232,8 @@ public final class ControladorInicio implements MouseListener,ActionListener,Key
           if (e.getSource().equals(this.formInicio.listProductos)){
               
           }
+          
+          
    }
            
 
@@ -264,7 +271,8 @@ public final class ControladorInicio implements MouseListener,ActionListener,Key
 
     @Override
     public void mouseClicked(MouseEvent me) {
-        JList list = (JList)me.getSource();
+        if (me.getSource().equals(this.formInicio.listProductos)){
+             JList list = (JList)me.getSource();
         if (me.getClickCount() == 2) {
         System.out.println(this.formInicio.listProductos.getSelectedValue());   
 
@@ -276,7 +284,14 @@ public final class ControladorInicio implements MouseListener,ActionListener,Key
             }
             // Double-click detected
         int index = list.locationToIndex(me.getPoint());
+        } 
         }
+        
+           if (me.getSource().equals(this.formInicio.btnCarrito)){
+                 System.out.println("Carrito con productos" + productos_carrito.size());
+           ControladorCarrito controladorCarrito = new ControladorCarrito(this.agente.getLocalName(), productos_carrito);
+           }
+      
 
     }
 

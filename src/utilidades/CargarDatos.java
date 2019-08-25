@@ -155,7 +155,19 @@ public class CargarDatos{
          return prod;
       
       }
-       
+              public static Categoria buscarCatxId(Integer id, ArrayList<Categoria> categorias){
+          
+        Categoria cat = null;
+         
+         for (Categoria categoria : categorias) {
+              if (categoria.getId() == id){
+                  cat = categoria;
+              }
+              
+          }            
+         return cat;
+      
+      }
 
       public static ArrayList<Producto>  buscarProdxCat(ArrayList<Producto> productos, Integer categorias_id){
         ArrayList<Producto> prod = new ArrayList<Producto>();
