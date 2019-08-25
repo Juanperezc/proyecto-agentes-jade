@@ -77,7 +77,7 @@ public class VDetalle extends javax.swing.JFrame {
             }
         });
 
-        lbltitulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/imagen1.jpg"))); // NOI18N
+        lbltitulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/anillo_oro.jpg"))); // NOI18N
         lbltitulo.setText("Titulo");
 
         lblTotal.setText("200");
