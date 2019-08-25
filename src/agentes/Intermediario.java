@@ -35,12 +35,7 @@ public class Intermediario extends Agent {
     protected void setup() {
         that = this;
     System.out.println(this.getLocalName() + " Iniciado");
-     /*   try {
-         this.controladorInicio = new ControladorInicio(this, new ArrayList<Producto>());
-            //this.guardarComportamiento("Asistente_Eleazar", "Marico");
-        } catch (IOException ex) {
-            Logger.getLogger(Intermediario.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+     
          try {
          this.requestPreferencias();
          
@@ -48,48 +43,6 @@ public class Intermediario extends Agent {
          Logger.getLogger(Intermediario.class.getName()).log(Level.SEVERE, null, ex);
      }
          
-         
-         
-         /*ACLMessage msg = new ACLMessage(ACLMessage.CFP);
-         String usuario = "Asistente_"  + this.getLocalName();
-         msg.addReceiver(new AID(usuario, AID.ISLOCALNAME));
-         msg.setProtocol(FIPANames.InteractionProtocol.FIPA_CONTRACT_NET);
-         msg.setReplyByDate(new Date(System.currentTimeMillis() + 5000));
-         msg.setContent("Pasame los datos");
-         
-         
-         addBehaviour(new ContractNetInitiator(this, msg) {
-         
-         protected void handlePropose(ACLMessage propose, Vector v) {
-         try {
-         controladorInicio = new ControladorInicio(that, new ArrayList<Producto>());
-         System.out.println("preferencias " + propose.getContentObject().toString());
-         } catch (UnreadableException ex) {
-         System.out.println("Test ");
-         Logger.getLogger(Intermediario.class.getName()).log(Level.SEVERE, null, ex);
-         } catch (IOException ex) {
-         Logger.getLogger(Intermediario.class.getName()).log(Level.SEVERE, null, ex);
-         }
-         }
-         
-         protected void handleRefuse(ACLMessage refuse) {
-         System.out.println("Devolviendo preferencias");
-         System.out.println(refuse.getSender().getLocalName() +
-         ": " + refuse.getContent());
-         }
-         
-         protected void handleFailure(ACLMessage failure) {
-         System.out.println("Devolviendo preferencias");
-         if (failure.getSender().equals(myAgent.getAMS())) {
-         // Mensaje de la plataforma JADE: El destinatario no existe
-         System.out.println("El vendedor no existe");
-         } else {
-         System.out.println("Fallo");
-         
-         }
-         }
-         });*/
-   
         
     }
     @Override
@@ -150,11 +103,7 @@ public class Intermediario extends Agent {
                     }
                 }
             });
-        
-        
         }
-     
-     
      
      public void requestPreferencias() throws IOException{
            // this.getLocalName();
@@ -182,7 +131,6 @@ public class Intermediario extends Agent {
                     Logger.getLogger(Intermediario.class.getName()).log(Level.SEVERE, null, ex);
                     }
                  }
-                 
                  
                 @Override
                 protected void handleInform(ACLMessage inform) {
@@ -217,8 +165,6 @@ public class Intermediario extends Agent {
         
         }
      public ArrayList<Producto> produtosRecomendados(ArrayList<Preferencia> pref){
-        //  ArrayList<Producto> productos_todos = CargarDatos.CargarProductos();
-          //ArrayList<Categoria> categorias_todas = CargarDatos.CargarCategorias();
           
         //tipo 1 busqueda de producto
         //tipo 2 click de producto

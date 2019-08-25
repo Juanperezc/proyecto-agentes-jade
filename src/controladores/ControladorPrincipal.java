@@ -44,9 +44,7 @@ public class ControladorPrincipal implements ActionListener,KeyListener {
         // Perfil predetermiando (localhost:1099)
         Profile profile = new ProfileImpl();
   
-
         
-
         // Contenedor principal
         this.mainContainer = runtime.createMainContainer(profile);
 
@@ -82,10 +80,7 @@ public class ControladorPrincipal implements ActionListener,KeyListener {
              formPrincipal.setVisible(true);
              formPrincipal.agregarListener(this);
        
-     /*  formPrincipal.getjMenuMovimientos().setEnabled(false);
-       formPrincipal.getjMenuArchivos().setEnabled(false);
-       
-       formPrincipal.getjTextFieldUsuario().addKeyListener(this);*/
+     
      }
 
  
